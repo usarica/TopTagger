@@ -424,20 +424,20 @@ int main(int argc, char* argv[])
                         if(nEvts > 0 && NEvtsTotal > nEvts) break;
                         if(tr.getEvtNum() % printInterval == 0) std::cout << "Event #: " << tr.getEvtNum() << std::endl;
 
-                        //Make top 6 cm jets 4 vector
-                        const auto& Jets_cm_top6 = tr.getVec<TLorentzVector>("Jets_cm_top6");
-                        for(unsigned int i = 0; i < Jets_cm_top6.size(); i++)
-                        {
-                            tr.registerDerivedVar("Jet_pt_"+std::to_string(i+1),  static_cast<double>(Jets_cm_top6[i].Pt()));
-                            tr.registerDerivedVar("Jet_eta_"+std::to_string(i+1), static_cast<double>(Jets_cm_top6[i].Eta()));
-                            tr.registerDerivedVar("Jet_phi_"+std::to_string(i+1), static_cast<double>(Jets_cm_top6[i].Phi()));
-                            tr.registerDerivedVar("Jet_m_"+std::to_string(i+1),   static_cast<double>(Jets_cm_top6[i].M()));
-                        }
-
-                        //Get/make the mass variables
-                        const auto& BestCombo            = tr.getVar<std::pair<TLorentzVector, TLorentzVector>>("BestCombo");
-                        double bestComboAvgMass = ( BestCombo.first.M() + BestCombo.second.M() )/2;
-                        tr.registerDerivedVar("BestComboAvgMass", bestComboAvgMass);
+                        ////Make top 6 cm jets 4 vector
+                        //const auto& Jets_cm_top6 = tr.getVec<TLorentzVector>("Jets_cm_top6");
+                        //for(unsigned int i = 0; i < Jets_cm_top6.size(); i++)
+                        //{
+                        //    tr.registerDerivedVar("Jet_pt_"+std::to_string(i+1),  static_cast<double>(Jets_cm_top6[i].Pt()));
+                        //    tr.registerDerivedVar("Jet_eta_"+std::to_string(i+1), static_cast<double>(Jets_cm_top6[i].Eta()));
+                        //    tr.registerDerivedVar("Jet_phi_"+std::to_string(i+1), static_cast<double>(Jets_cm_top6[i].Phi()));
+                        //    tr.registerDerivedVar("Jet_m_"+std::to_string(i+1),   static_cast<double>(Jets_cm_top6[i].M()));
+                        //}
+                        //
+                        ////Get/make the mass variables
+                        //const auto& BestCombo            = tr.getVar<std::pair<TLorentzVector, TLorentzVector>>("BestCombo");
+                        //double bestComboAvgMass = ( BestCombo.first.M() + BestCombo.second.M() )/2;
+                        //tr.registerDerivedVar("BestComboAvgMass", bestComboAvgMass);
                         //double bestComboMassDiff = BestCombo.first.M() - BestCombo.second.M();
                         //double bestComboAvgPt = ( BestCombo.first.Pt() + BestCombo.second.Pt() )/2;
                         //double bestComboRelDiff = bestComboMassDiff / bestComboAvgMass;
