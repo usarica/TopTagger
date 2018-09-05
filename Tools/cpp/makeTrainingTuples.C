@@ -312,24 +312,36 @@ int main(int argc, char* argv[])
                            "Jet_pt_4",
                            "Jet_pt_5",
                            "Jet_pt_6",
+                           "Jet_pt_7",
                            "Jet_eta_1",
                            "Jet_eta_2",
                            "Jet_eta_3",
                            "Jet_eta_4",
                            "Jet_eta_5",
                            "Jet_eta_6",
+                           "Jet_eta_7",
                            "Jet_phi_1",
                            "Jet_phi_2",
                            "Jet_phi_3",
                            "Jet_phi_4",
                            "Jet_phi_5",
                            "Jet_phi_6",
+                           "Jet_phi_7",
                            "Jet_m_1",
                            "Jet_m_2",
                            "Jet_m_3",
                            "Jet_m_4",
                            "Jet_m_5",
                            "Jet_m_6",
+                           "Jet_m_7",
+                           "GoodLeptons_pt_1",
+                           "GoodLeptons_eta_1",
+                           "GoodLeptons_phi_1",
+                           "GoodLeptons_m_1",
+                           "lvMET_cm_pt",
+                           "lvMET_cm_eta",
+                           "lvMET_cm_phi",
+                           "lvMET_cm_m",
                            "BestComboAvgMass"}}
     };
 
@@ -424,7 +436,7 @@ int main(int argc, char* argv[])
                         if(nEvts > 0 && NEvtsTotal > nEvts) break;
                         if(tr.getEvtNum() % printInterval == 0) std::cout << "Event #: " << tr.getEvtNum() << std::endl;
 
-                        ////Make top 6 cm jets 4 vector
+                        ////Make top 7 cm jets 4 vector
                         //const auto& Jets_cm_top6 = tr.getVec<TLorentzVector>("Jets_cm_top6");
                         //for(unsigned int i = 0; i < Jets_cm_top6.size(); i++)
                         //{
@@ -447,7 +459,8 @@ int main(int argc, char* argv[])
                         double weight = file.getWeight();
                         tr.registerDerivedVar("sampleWgt", weight);
                         tr.registerDerivedVar("EvtNum_double", static_cast<double>(tr.getVar<long int>("EvtNum"))); 
-                        tr.registerDerivedVar("NGoodJets_double", static_cast<double>(tr.getVar<int>("NGoodJets"))); 
+                        const auto NGoodJets = tr.getVar<int>("NGoodJets");
+                        tr.registerDerivedVar("NGoodJets_double", static_cast<double>(NGoodJets)); 
                         
                         //Things to run only on first event
                         if(!branchesInitialized)
@@ -476,9 +489,8 @@ int main(int argc, char* argv[])
                         const auto& passBaseline0l_Good = tr.getVar<bool>("passBaseline0l_Good");
                         const auto& passBaseline1l_Good = tr.getVar<bool>("passBaseline1l_Good");
                         const auto& Mbl = tr.getVar<double>("Mbl");
-                        
 			//fill mini tuple
-			bool passbaseline = passBaseline1l_Good && Mbl>30 && Mbl<180;
+			bool passbaseline = passBaseline1l_Good && Mbl>30 && Mbl<180 && NGoodJets >= 7;
 			if(passbaseline)
                         {
                             //std::cout<<"Got one"<<std::endl;
