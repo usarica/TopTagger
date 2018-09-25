@@ -10,6 +10,7 @@
 #include "Framework/Framework/include/Muon.h"
 #include "Framework/Framework/include/Electron.h"
 #include "Framework/Framework/include/BJet.h"
+#include "Framework/Framework/include/Photon.h"
 #include "Framework/Framework/include/CommonVariables.h"
 #include "Framework/Framework/include/Baseline.h"
 
@@ -415,6 +416,7 @@ int main(int argc, char* argv[])
                     Electron electron;
                     Jet jet;
                     BJet bjet;
+                    Photon photon;
                     CommonVariables commonVariables;
                     MakeMVAVariables makeMVAVariables(false);
                     Baseline baseline;
@@ -423,6 +425,7 @@ int main(int argc, char* argv[])
                     tr.registerFunction( std::move(electron) );
                     tr.registerFunction( std::move(jet) );
                     tr.registerFunction( std::move(bjet) );
+                    tr.registerFunction( std::move(photon) );
                     tr.registerFunction( std::move(commonVariables) );
                     tr.registerFunction( std::move(makeMVAVariables) );
                     tr.registerFunction( std::move(baseline) );
@@ -490,7 +493,7 @@ int main(int argc, char* argv[])
                         const auto& passBaseline1l_Good = tr.getVar<bool>("passBaseline1l_Good");
                         const auto& Mbl = tr.getVar<double>("Mbl");
 			//fill mini tuple
-			bool passbaseline = passBaseline1l_Good && Mbl>30 && Mbl<180 && NGoodJets >= 7;
+			bool passbaseline = passBaseline1l_Good && Mbl>30 && Mbl<180;
 			if(passbaseline)
                         {
                             //std::cout<<"Got one"<<std::endl;
@@ -503,9 +506,7 @@ int main(int argc, char* argv[])
                             }
                             ++NEvtsTotal;
                         }
-
                     }
-
                     f->Close();
                 }
                 catch(const SATException& e)
