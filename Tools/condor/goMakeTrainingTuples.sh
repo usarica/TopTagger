@@ -30,8 +30,8 @@ ls -lhrt
 
 #mv trainingTuple_* ${_CONDOR_SCRATCH_DIR}
 for i in trainingTuple_*; do
-    echo xrdcp $i root://cmseos.fnal.gov//store/user/cmadrid/trainingTuples/BackGroundMVA_V8_CM_All_GoodJets/$i
-    xrdcp $i root://cmseos.fnal.gov//store/user/cmadrid/trainingTuples/BackGroundMVA_V8_CM_All_GoodJets/$i
+    echo xrdcp $i root://cmseos.fnal.gov//store/user/cmadrid/trainingTuples/BackGroundMVA_V9_CM_All_GoodJets_Inclusive/$i
+    xrdcp $i root://cmseos.fnal.gov//store/user/cmadrid/trainingTuples/BackGroundMVA_V9_CM_All_GoodJets_Inclusive/$i
     rm $i
 done
 
